@@ -41,8 +41,7 @@ jobs:
 
       - name: Deploy via rsync
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22" -r ./src/* $UPLOAD_PATH --delete
-
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22" -r ./src/ $UPLOAD_PATH --delete
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       VPS: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}"
