@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./images/backend
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 8080:80
+    environment:
+      DB_HOST: "database"
+      DB_DATABASE: "portfolio"
+      DB_USER: "postgres"
+      DB_PASS: "Welkom01"
+    restart: unless-stopped
+  database:
+    build: ./images/database
+    environment:
+      POSTGRES_PASSWORD: Welkom01
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  database:
