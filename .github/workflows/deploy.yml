@@ -51,7 +51,7 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       VPS: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}"
       UPLOAD_PATH: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}:${{vars.VPS_DIR}}"
-      DOCKER_COMPOSE_PATH: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}:${{vars.VPS_DOCKER_COMPOSE}}"
+      DOCKER_COMPOSE_PATH: "${{vars.VPS_DOCKER_COMPOSE}}"
 
     # Optional: Define an environment for deployment, like production
     environment:
