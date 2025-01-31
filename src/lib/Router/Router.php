@@ -6,7 +6,7 @@
  * @author     Matthijs Verheijen <info@matthijsverheijen.com>
  */
 
-namespace lib\Router;
+namespace Lib\Router;
 
 use Exception;
 

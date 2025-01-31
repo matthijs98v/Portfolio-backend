@@ -6,7 +6,7 @@
  * @author     Matthijs Verheijen <info@matthijsverheijen.com>
  */
 
-namespace lib\Database;
+namespace Lib\Database;
 
 use PDO;
 use PDOStatement;

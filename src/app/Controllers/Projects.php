@@ -2,8 +2,8 @@
 
 namespace app\Controllers;
 
-use lib\Router\Request;
-use lib\Database\Query;
+use Lib\Router\Request;
+use Lib\Database\Query;
 
 class Projects {
     /*

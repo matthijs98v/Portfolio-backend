@@ -6,7 +6,7 @@
  * @author     Matthijs Verheijen <info@matthijsverheijen.com>
  */
 
-namespace lib\Auth;
+namespace Lib\Auth;
 
 class Jwt {
 

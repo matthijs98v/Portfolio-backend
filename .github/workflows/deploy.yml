@@ -42,10 +42,16 @@ jobs:
       - name: Deploy via rsync
         run: |
           rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22" -r ./src/ $UPLOAD_PATH --delete
+
+      - name: Build image and restart docker image
+        run:
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 $VPS /
+          cd DOCKER_COMPOSE_PATH && docker compose build && docker compose up -d
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       VPS: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}"
       UPLOAD_PATH: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}:${{vars.VPS_DIR}}"
+      DOCKER_COMPOSE_PATH: "${{vars.VPS_USER}}@${{vars.VPS_HOST}}:${{vars.VPS_DOCKER_COMPOSE}}"
 
     # Optional: Define an environment for deployment, like production
     environment:

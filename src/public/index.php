@@ -10,17 +10,13 @@ header('Content-Type: application/json');
 // For making a public dir, so you can access the public folder
 const PUBLIC_DIR = __dir__;
 
-use lib\Router\Router;
+use Lib\Router\Router;
 
 try {
     // The lib
-    require_once __DIR__ . '/../lib/autoload.php';
-    // Controllers
-    require_once __DIR__ . '/../app/autoload.php';
+    require_once __DIR__ .'/../vendor/autoload.php';
     // Config
     require_once __DIR__ . '/../config/config.php';
-    // Composer
-    // require_once __DIR__ . '/../../../composer/vendor/autoload.php';
 
     // Instance of the url parser
     $router = new Router();

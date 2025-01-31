@@ -1,0 +1,17 @@
+{
+  "name": "portfolio/backend",
+  "description": "Backend api for portfolio website",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Matthijs Verheijen"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Lib\\": "lib/"
+    }
+  }
+}
