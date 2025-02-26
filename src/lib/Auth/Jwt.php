@@ -8,8 +8,8 @@
 
 namespace Lib\Auth;
 
-class Jwt {
-
+class Jwt
+{
     private array $payload = [];
     private array $headers = [ "alg" => "HS512"];
     private string $secret = "Test";
@@ -21,7 +21,8 @@ class Jwt {
      *
      * @return void
      */
-    public function changeSecret(string $value) : void{
+    public function changeSecret(string $value): void
+    {
         $this->secret = $value;
     }
 
@@ -32,7 +33,8 @@ class Jwt {
      *
      * @return string
      */
-    private function base64UrlEncode(string $text) : string {
+    private function base64UrlEncode(string $text): string
+    {
         return str_replace(
             ['+', '/', '='],
             ['-', '_', ''],
@@ -47,7 +49,8 @@ class Jwt {
      *
      * @return $this
      */
-    public function setId(string $id): Jwt {
+    public function setId(string $id): Jwt
+    {
         $this->payload['id'] = $id;
         return $this;
     }
@@ -59,7 +62,8 @@ class Jwt {
      *
      * @return $this
      */
-    public function setSub(string $sub): Jwt {
+    public function setSub(string $sub): Jwt
+    {
         $this->payload['sub'] = $sub;
         return $this;
     }
@@ -71,7 +75,8 @@ class Jwt {
      *
      * @return $this
      */
-    public function setExp(string $exp): Jwt {
+    public function setExp(string $exp): Jwt
+    {
         $this->payload['exp'] = $exp;
         return $this;
     }
@@ -83,7 +88,8 @@ class Jwt {
      *
      * @return $this
      */
-    public function setIssuer(string $iss): Jwt {
+    public function setIssuer(string $iss): Jwt
+    {
         $this->payload['iss'] = $iss;
         return $this;
     }
@@ -95,7 +101,8 @@ class Jwt {
      *
      * @return $this
      */
-    public function issuedAt(string $iss): Jwt {
+    public function issuedAt(string $iss): Jwt
+    {
         $this->payload['iat'] = $iss;
         return $this;
     }
@@ -107,13 +114,14 @@ class Jwt {
      *
      * @return bool
      */
-    public function validate(string $token): bool {
+    public function validate(string $token): bool
+    {
 
         // Get the parts of the token
         $jwtParts = explode('.', $token);
 
         // Check if token has a valid length
-        if(count($jwtParts) != 3){
+        if (count($jwtParts) != 3) {
             return false;
         }
 
@@ -129,20 +137,20 @@ class Jwt {
         // Generate signature for comparison
         $payloadEncoded = $payload;
         $headersEncoded = $header;
-        $signature_comp = $this->base64UrlEncode(hash_hmac('sha512',"$headersEncoded.$payloadEncoded",$this->secret,true));
+        $signature_comp = $this->base64UrlEncode(hash_hmac('sha512', "$headersEncoded.$payloadEncoded", $this->secret, true));
 
         // Check if signature is valid
-        if($signature_comp != $signature) {
+        if ($signature_comp != $signature) {
             return false;
         }
 
         // Check if token is already valid
-        if(isset($payload_decoded->iat) && time() < $payload_decoded->iat){
+        if (isset($payload_decoded->iat) && time() < $payload_decoded->iat) {
             return false;
         }
 
         // Check if token is not expired
-        if(isset($payload_decoded->exp) && time() > $payload_decoded->exp ) {
+        if (isset($payload_decoded->exp) && time() > $payload_decoded->exp) {
             return false;
         }
 
@@ -150,7 +158,8 @@ class Jwt {
         return true;
     }
 
-    public function getPayload( string $token ) : array | object {
+    public function getPayload(string $token): array | object
+    {
         $jwtParts = explode('.', $token);
         $payload = $jwtParts[1];
         return $payloadDecoded = json_decode(base64_decode($payload));
@@ -161,16 +170,15 @@ class Jwt {
      *
      * @return string
      */
-    public function create(): string {
+    public function create(): string
+    {
         $payloadEncoded = $this->base64UrlEncode(json_encode($this->payload));
         $headersEncoded = $this->base64UrlEncode(json_encode($this->headers));
 
         // For the signature
-        $signature = $this->base64UrlEncode(hash_hmac('sha512',"$headersEncoded.$payloadEncoded",$this->secret,true));
+        $signature = $this->base64UrlEncode(hash_hmac('sha512', "$headersEncoded.$payloadEncoded", $this->secret, true));
 
         // Return generated token
         return "$headersEncoded.$payloadEncoded.$signature";
     }
 }
-
-?>

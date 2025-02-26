@@ -1,14 +1,16 @@
 <?php
 
-namespace app\Controllers;
+namespace App\Controllers;
 
 use lib\Router\Request;
 
-class Test {
+class Test
+{
     /*
      * Returns all projects
      */
-    public static function test( Request $r): array {
+    public static function test(Request $r): array
+    {
         return [
             'msg' => "Works!",
             // 'Enviorments' => $_ENV['DB_PASS']

@@ -1,18 +1,20 @@
 <?php
 
-namespace app\Controllers;
+namespace App\Controllers;
 
 use Lib\Router\Request;
 use Lib\Database\Query;
 
-class Projects {
+class Projects
+{
     /*
      * Returns all projects
      */
-    public static function getAll( Request $r): array {
+    public static function getAll(Request $r): array
+    {
         $Query = new Query();
         $Data = $Query->fetchAll("SELECT * FROM projects");
-    
+
         return [
             'projects' => $Data
         ];
@@ -21,10 +23,11 @@ class Projects {
     /*
      * Returns project by id
      */
-    public static function getById( Request $r): array {
+    public static function getById(Request $r): array
+    {
         $Query = new Query();
         $Data = $Query->fetchAll("SELECT * FROM projects WHERE id = ?", [$r->params('id')]);
-    
+
         return [
             'projects' => $Data
         ];

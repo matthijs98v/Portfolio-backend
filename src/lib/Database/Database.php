@@ -10,11 +10,12 @@ namespace Lib\Database;
 
 use PDO;
 
-class Database {
-
+class Database
+{
     private ?PDO $dbh = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->dbh = new PDO(
             'pgsql:host=' . DB_HOST . ';dbname=' . DB_DATABASE,
             DB_USER,
@@ -22,11 +23,13 @@ class Database {
         );
     }
 
-    protected function connect(): ?PDO {
+    protected function connect(): ?PDO
+    {
         return $this->dbh;
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->dbh = null;
     }
 }

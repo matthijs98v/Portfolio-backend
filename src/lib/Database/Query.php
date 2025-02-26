@@ -11,8 +11,8 @@ namespace Lib\Database;
 use PDO;
 use PDOStatement;
 
-class Query extends Database {
-
+class Query extends Database
+{
     /***
      * To only execute to query
      *
@@ -21,7 +21,8 @@ class Query extends Database {
      *
      * @return false|PDOStatement|array
      */
-    public function run($query, array $params = []): false|PDOStatement|array {
+    public function run($query, array $params = []): false|PDOStatement|array
+    {
         $query = $this->connect()->prepare($query);
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute($params);
@@ -29,8 +30,8 @@ class Query extends Database {
         return $query;
     }
 
-    public function check() {
-
+    public function check()
+    {
     }
 
     /***
@@ -41,7 +42,8 @@ class Query extends Database {
      *
      * @return false|PDOStatement|array
      */
-    public function fetch($query, array $params = []): false|PDOStatement|array  {
+    public function fetch($query, array $params = []): false|PDOStatement|array
+    {
         $query = $this->connect()->prepare($query);
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute($params);
@@ -57,7 +59,8 @@ class Query extends Database {
      *
      * @return false|PDOStatement|array
      */
-    public function fetchAll($query, array $params = []): false|PDOStatement|array  {
+    public function fetchAll($query, array $params = []): false|PDOStatement|array
+    {
         $query = $this->connect()->prepare($query);
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $query->execute($params);

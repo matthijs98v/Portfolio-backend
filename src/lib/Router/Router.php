@@ -10,11 +10,13 @@ namespace Lib\Router;
 
 use Exception;
 
-class Router {
+class Router
+{
     private static array $routes = [];
     private static array $allowedMethods = ['GET', 'POST', 'DELETE', 'PUT'];
 
-    public function __construct() {
+    public function __construct()
+    {
         // If options request method is options
         if ($this->getMethod() === 'OPTIONS') {
             die();
@@ -28,7 +30,8 @@ class Router {
      *
      * @return array
      */
-    private function urlToArray(string $url): array {
+    private function urlToArray(string $url): array
+    {
         // set url into array for later use
         $alt_url = explode('/', $url);
 
@@ -54,7 +57,8 @@ class Router {
      *
      * @return array|false
      */
-    private function checkUrl(string $alt_url): array|false {
+    private function checkUrl(string $alt_url): array|false
+    {
         // Check if mapping isset
         $_GET['mapping'] = $_GET['mapping'] ?? "";
 
@@ -92,7 +96,8 @@ class Router {
      *
      * @return array
      */
-    private function parse(string $url): array {
+    private function parse(string $url): array
+    {
         // parse url
         $vars = [];
 
@@ -151,7 +156,8 @@ class Router {
      *
      * @return string
      */
-    public static function getMethod(): string {
+    public static function getMethod(): string
+    {
         return $_SERVER['REQUEST_METHOD'] ?? "";
     }
 
@@ -240,7 +246,8 @@ class Router {
      *
      * @return array
      */
-    public static function getRoutes(): array {
+    public static function getRoutes(): array
+    {
         return self::$routes;
     }
 
@@ -250,7 +257,8 @@ class Router {
      * @return array
      * @throws Exception
      */
-    public function run(): array {
+    public function run(): array
+    {
         // Check if method is allowed
         if (!in_array(self::getMethod(), self::$allowedMethods)) {
             throw new Exception('Method not allowed');
@@ -269,7 +277,8 @@ class Router {
 
             if ($check) {
                 // Execute controller
-                if (!empty($route['action']) && is_array($route['action'])
+                if (
+                    !empty($route['action']) && is_array($route['action'])
                     && count($route['action']) == 2
                     && is_callable(
                         $route['action'][0] . '::' . $route['action'][1]
@@ -280,7 +289,8 @@ class Router {
                         $route['action'][0] . '::' . $route['action'][1],
                         new Request($check['vars'])
                     );
-                } elseif (is_callable($route['action'])
+                } elseif (
+                    is_callable($route['action'])
                     && !is_string(
                         $route['action']
                     )
@@ -293,8 +303,8 @@ class Router {
                 }
                 // Return all the information
                 return [
-                    ...$check, 
-                    'action' => $route['action'], 
+                    ...$check,
+                    'action' => $route['action'],
                     'return' => $func_return
                 ];
             }
@@ -303,5 +313,3 @@ class Router {
         throw new Exception('Url not found');
     }
 }
-
-?>

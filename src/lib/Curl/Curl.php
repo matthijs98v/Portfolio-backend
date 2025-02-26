@@ -8,7 +8,8 @@
 
 namespace lib\Curl;
 
-class Curl {
+class Curl
+{
     /**
      * Execute a POST request via curl
      *
@@ -18,7 +19,7 @@ class Curl {
      * @return bool|string|array
      * @throws \Exception
      */
-    public static function post ( string $url, array $post = [], array $headers = [] ): bool|string|array
+    public static function post(string $url, array $post = [], array $headers = []): bool|string|array
     {
 
         // Initialize cURL session
@@ -30,14 +31,14 @@ class Curl {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Add the headers
-        foreach ( $headers as $key => $value ) {
+        foreach ($headers as $key => $value) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, [$key => $value]);
         }
 
         // Execute cURL session and get the response
         $response = curl_exec($ch);
         // Check for cURL errors
-        if ( curl_errno($ch) ) {
+        if (curl_errno($ch)) {
             throw new \Exception('Curl error: ' . curl_error($ch));
         }
 
@@ -55,7 +56,7 @@ class Curl {
      * @return bool|string|array
      * @throws \Exception
      */
-    public static function get ( string $url, array $headers = [] ): bool|string|array
+    public static function get(string $url, array $headers = []): bool|string|array
     {
 
         // Initialize cURL session
@@ -65,14 +66,14 @@ class Curl {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Add the headers
-        foreach ( $headers as $key => $value ) {
+        foreach ($headers as $key => $value) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, [$key => $value]);
         }
 
         // Execute cURL session and get the response
         $response = curl_exec($ch);
         // Check for cURL errors
-        if ( curl_errno($ch) ) {
+        if (curl_errno($ch)) {
             throw new \Exception('Curl error: ' . curl_error($ch));
         }
 

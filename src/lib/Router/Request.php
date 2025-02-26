@@ -10,14 +10,16 @@ namespace Lib\Router;
 
 use Exception;
 
-class Request {
+class Request
+{
     private array $required = [];
     private array $params = [];
     private array $post = [];
     private array $files = [];
     private array $get = [];
 
-    public function __construct(array $params = []) {
+    public function __construct(array $params = [])
+    {
         $this->params = $params;
 
         // Convert json data to post array
@@ -42,7 +44,8 @@ class Request {
      *
      * @return string|array|null
      */
-    public function post(?string $field = null): string|array|null {
+    public function post(?string $field = null): string|array|null
+    {
         if ($field == null) {
             return $this->post;
         }
@@ -57,7 +60,8 @@ class Request {
      *
      * @return string|array|null
      */
-    public function files(?string $field = null): string|array|null {
+    public function files(?string $field = null): string|array|null
+    {
         if ($field == null) {
             return $this->files;
         }
@@ -72,7 +76,8 @@ class Request {
      *
      * @return string|array|null
      */
-    public function get(?string $field = null): string|array|null {
+    public function get(?string $field = null): string|array|null
+    {
         if ($field == null) {
             return $this->get;
         }
@@ -88,13 +93,16 @@ class Request {
      * @return string|array|null
      * @throws Exception
      */
-    public function server(?string $field = null): string|array|null {
+    public function server(?string $field = null): string|array|null
+    {
         if ($field == null) {
             return $_SERVER;
         }
 
         // Checks if field isset
-        if(!isset($_SERVER[$field])) throw new Exception('Server var '.$field.' not set');
+        if (!isset($_SERVER[$field])) {
+            throw new Exception('Server var ' . $field . ' not set');
+        }
 
         return $_SERVER[$field];
     }
@@ -106,7 +114,8 @@ class Request {
      *
      * @return string|array|null
      */
-    public function params($field = null): string|array|null {
+    public function params($field = null): string|array|null
+    {
         if ($field == null) {
             return $this->params;
         }
@@ -122,7 +131,8 @@ class Request {
      *
      * @return void
      */
-    public function addRequired(string $field, string $type='post'): void {
+    public function addRequired(string $field, string $type = 'post'): void
+    {
         $this->required[$type][] = $field;
     }
 
@@ -131,7 +141,8 @@ class Request {
      *
      * @throws Exception
      */
-    public function validateRequired(): void {
+    public function validateRequired(): void
+    {
         // Keep track of the missing post data
         $missing = [];
 
@@ -140,7 +151,7 @@ class Request {
             // Check post array for requirements
             foreach ($this->required['post'] as $require) {
                 if ($this->post($require) == null) {
-                    $missing[] = $require.'(post)';
+                    $missing[] = $require . '(post)';
                 }
             }
         }
@@ -171,7 +182,4 @@ class Request {
             );
         }
     }
-
 }
-
-?>
